@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package contracts.vault.v1;
 
-option go_package = "github.com/1pima/gatekeeper-proto/gen/go/vault/v1;vaultv1";
+option go_package = "github.com/1pima/gatekeeper-proto/gen/go/contracts/vault/v1;vaultv1";
 
 service TokenService {
   // Запрос карты (токена) по хэшу

@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package contracts.processing.v1;
 
-option go_package = "github.com/1pima/gatekeeper-proto/gen/go/processing/v1;processingv1";
+option go_package = "github.com/1pima/gatekeeper-proto/gen/go/contracts/processing/v1;processingv1";
 
 service TransactionService {
   // Создание операции
