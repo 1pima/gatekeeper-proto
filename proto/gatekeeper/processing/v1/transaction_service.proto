@@ -1,0 +1,65 @@
+syntax = "proto3";
+
+package gatekeeper.processing.v1;
+
+option go_package = "github.com/1pima/gatekeeper-proto/gen/go/processing/v1;processingv1";
+
+service TransactionService {
+  // Создание операции
+  rpc CreateTransaction(CreateTransactionRequest) returns (CreateTransactionResponse);
+
+  // Авторизация
+  rpc AuthorizeTransaction(AuthorizeTransactionRequest) returns (AuthorizeTransactionResponse);
+
+  // Возврат
+  rpc ReverseTransaction(ReverseTransactionRequest) returns (ReverseTransactionResponse);
+
+  // todo DMS ?
+}
+
+enum TransactionType {
+  TRANSACTION_TYPE_UNSPECIFIED = 0;
+  TRANSACTION_TYPE_PAYMENT = 1;
+  TRANSACTION_TYPE_REFUND = 2;
+}
+
+message AmountData {
+  int64 amount = 1;        // Значение в минимальных единицах (100.00KZT==10000KZT, 5.00USD==500USD)
+  int32 currency_code = 2; // ISO 4217 numeric
+}
+
+message CreateTransactionRequest {
+  string reference = 1;
+  string ext_id = 2;
+  TransactionType tr_type = 3;
+
+  AmountData transaction_amount = 4;
+  AmountData settlement_amount = 5;
+
+  int64 token_id = 6;
+  int64 mcc_id = 7;
+  string bank_data = 8; // json todo использовать google.protobuf.Struct ?
+}
+
+message CreateTransactionResponse {
+  string transaction_id = 1; // transaction ID (UUID primary key)
+}
+
+message AuthorizeTransactionRequest {
+  string transaction_id = 1; // transaction ID (UUID primary key)
+}
+
+message AuthorizeTransactionResponse {
+  string mps_code = 1;
+  string mps_message = 2;
+}
+
+message ReverseTransactionRequest {
+  string original_reference = 1; // Ссылка на оригинальную транзакцию
+  AmountData reversal_amount = 3; // Для поддержки частичных возвратов
+}
+
+message ReverseTransactionResponse {
+  string mps_code = 1;
+  string mps_message = 2;
+}

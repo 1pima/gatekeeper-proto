@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package gatekeeper.vault.v1;
+
+option go_package = "github.com/1pima/gatekeeper-proto/gen/go/vault/v1;vaultv1";
+
+service TokenService {
+  // Запрос карты (токена) по хэшу
+  rpc GetTokenByHash(GetTokenByHashRequest) returns (GetTokenResponse);
+}
+
+message GetTokenByHashRequest {
+  string card_hash = 1;
+}
+
+message GetTokenResponse {
+  int64 token_id = 1;         // ID из БД
+  // codes.NOT_FOUND - от приложения, если токен не найден
+}
