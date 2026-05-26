@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package gatekeeper.processing.v1;
+package contracts.processing.v1;
 
 option go_package = "github.com/1pima/gatekeeper-proto/gen/go/processing/v1;processingv1";
 
