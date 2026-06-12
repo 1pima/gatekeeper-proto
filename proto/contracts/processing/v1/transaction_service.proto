@@ -17,6 +17,7 @@ service TransactionService {
   // todo DMS ?
 }
 
+// deprecated - ?
 enum TransactionType {
   TRANSACTION_TYPE_UNSPECIFIED = 0;
   TRANSACTION_TYPE_PAYMENT = 1;
@@ -31,7 +32,7 @@ message AmountData {
 message CreateTransactionRequest {
   string reference = 1;
   string ext_id = 2;
-  TransactionType tr_type = 3;
+  string tr_type = 3;
 
   AmountData transaction_amount = 4;
   AmountData settlement_amount = 5;
